@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+  font-family: Arial;
+  background: #fff0f3;
+}
+
+#map {
+  width: 90%;
+  height: 400px;
+  margin: 20px auto;
+  border: 2px solid #e91e63;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
