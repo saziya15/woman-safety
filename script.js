@@ -1,20 +1,39 @@
-let map;
+let map, marker;
 
 function initMap() {
-    const userLocation = { lat: 17.3850, lng: 78.4867 }; // Hyderabad
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
 
-    map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 14,
-        center: userLocation,
-    });
+        const userLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
 
-    new google.maps.Marker({
-        position: userLocation,
-        map: map,
-        title: "You are here",
-    });
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 16,
+          center: userLocation,
+        });
+
+        marker = new google.maps.Marker({
+          position: userLocation,
+          map: map,
+          title: "You are here",
+        });
+
+      },
+      function () {
+        alert("Location permission denied");
+      }
+    );
+  } else {
+    alert("Geolocation not supported");
+  }
 }
 
 function sendSOS() {
-    alert("🚨 SOS Alert Sent!\nLocation shared with contacts.");
+  if (marker) {
+    const pos = marker.getPosition();
+    alert("🚨 SOS sent!\nLatitude: " + pos.lat() + "\nLongitude: " + pos.lng());
+  }
 }
